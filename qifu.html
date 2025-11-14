@@ -1,190 +1,148 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>为巴勒斯坦遇难儿童祈福</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-/* 全局样式 */
-body {
-    margin: 0;
-    background: #0b0b0c;
-    color: #e8e8e8;
-    font-family: "Noto Serif SC", serif;
-    overflow-x: hidden;
-    position: relative;
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>为巴勒斯坦被杀儿童祈福</title>
+  <style>
+    :root{
+      --bg1:#0f172a; /* deep navy */
+      --bg2:#0b1220;
+      --card:#0b1226;
+      --accent:#ffd77a;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,'Noto Sans',"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#e6eef6}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:36px}
+    .card{width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
+    header{display:flex;gap:18px;align-items:center}
+    .logo{width:86px;height:86px;display:grid;place-items:center;background:var(--glass);border-radius:16px}
+    .logo svg{width:56px;height:56px}
+    h1{font-size:20px;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 0;font-size:14px}
 
-/* 天使守护者 */
-.angel-left, .angel-right {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.15;
-    width: 150px;
-    pointer-events: none;
-    z-index: 1;
-}
-.angel-left { left: 0; }
-.angel-right { right: 0; }
+    .hero{display:flex;gap:24px;margin-top:22px;align-items:center}
+    .left{flex:1}
+    .right{width:220px;display:flex;flex-direction:column;align-items:center}
 
-/* 页头 */
-header {
-    text-align: center;
-    padding: 50px 20px 20px;
-}
-h1 { font-size: 36px; font-weight: 500; }
-.subtitle { font-size: 18px; opacity: 0.8; margin-top: 10px; }
+    .prayer{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;line-height:1.65}
+    .prayer h2{margin:0 0 8px;font-size:16px}
+    .prayer .text{font-size:15px}
 
-/* 祈福语轮播 */
-.blessing-container {
-    width: 80%;
-    margin: 0 auto 50px;
-    text-align: center;
-    font-size: 20px;
-    min-height: 60px;
-    opacity: 0.9;
-    z-index: 2;
-    position: relative;
-}
+    .candles{display:flex;gap:12px;margin-top:14px;align-items:end}
+    .candle{width:22px;height:70px;background:linear-gradient(180deg,#fff5c6,#ffd77a);border-radius:6px;position:relative;box-shadow:0 4px 10px rgba(0,0,0,0.4);overflow:visible}
+    .candle:after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:78%;width:6px;height:16px;background:linear-gradient(180deg,#ffefb8,#ffd77a);border-radius:3px}
+    .flame{position:absolute;left:50%;transform:translateX(-50%);bottom:92%;width:18px;height:28px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;filter:blur(0.3px);animation:flicker 2s infinite}
+    .flame::before{content:'';position:absolute;inset:3px;border-radius:inherit;background:linear-gradient(180deg,#fff6d0,#ffaf33);}
+    @keyframes flicker{0%{transform:translateX(-50%) translateY(0) scale(1)}25%{transform:translateX(-48%) translateY(-1px) scale(0.98)}50%{transform:translateX(-51%) translateY(1px) scale(1.02)}75%{transform:translateX(-49%) translateY(-1px) scale(0.99)}100%{transform:translateX(-50%) translateY(0) scale(1)}}
 
-/* 名单石碑卡片 */
-.names-container {
-    width: 80%;
-    margin: 0 auto 50px;
-    max-height: 500px;
-    overflow-y: auto;
-    position: relative;
-    z-index: 2;
-}
-.memorial-item {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-}
-.stone-name {
-    background: #333;
-    background-image: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 100%);
-    padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    font-family: "Noto Serif SC", serif;
-    font-size: 18px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
-    margin-left: 20px;
-}
+    .names{margin-top:18px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));padding:12px;border-radius:10px;max-height:180px;overflow:auto}
+    .names p{margin:6px 0;color:var(--muted);font-size:14px}
 
-/* 白蜡烛 */
-.candle-real {
-    display: inline-block;
-    position: relative;
-    width: 20px;
-    height: 100px;
-}
-.candle-body {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.4);
-    position: relative;
-}
-.candle-light {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    width: 24px;
-    height: 30px;
-    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.0) 70%);
-    transform: translateX(-50%);
-    border-radius: 50%;
-}
+    .actions{display:flex;gap:10px;margin-top:18px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;background:transparent;color:var(--accent);cursor:pointer;font-weight:600}
+    .btn.ghost{color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
 
-/* 页脚 */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    opacity: 0.6;
-    font-size: 14px;
-    z-index: 2;
-    position: relative;
-}
-</style>
+    footer{margin-top:22px;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:720px){.hero{flex-direction:column}.right{width:100%}}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <header>
+        <div class="logo" aria-hidden>
+          <!-- simple dove symbol -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <path d="M9 35c6-13 25-22 36-16-6 7-11 17-6 25-8-2-17 6-30-9z" fill="white" opacity="0.95"/>
+            <circle cx="46" cy="22" r="3" fill="white" opacity="0.85"/>
+          </svg>
+        </div>
+        <div>
+          <h1>为巴勒斯坦被杀儿童祈福</h1>
+          <p class="lead">愿这些无辜的孩子在安宁中得到记忆与和平。此页面为纪念与祈愿之所——可自由分享与打印。</p>
+        </div>
+      </header>
 
-<!-- 天使守护 -->
-<img src="left-angel.png" class="angel-left" alt="守护天使左">
-<img src="right-angel.png" class="angel-right" alt="守护天使右">
+      <section class="hero" aria-label="祈福区域">
+        <div class="left">
+          <div class="prayer" id="prayerCard">
+            <h2>祈祷 / Prayer</h2>
+            <div class="text" id="prayerText">
+              <p>愿逝去的孩子们安息，愿他们的名字被铭记，愿悲痛化为和平的呼声。</p>
+              <p>May the children find peace. May their names be remembered. May sorrow become a call for peace.</p>
+              <p style="direction:rtl;text-align:right;margin-top:8px">اللهم ارحم الأطفال المقتولين، وامنحهم السلام</p>
+            </div>
+          </div>
 
-<header>
-    <h1>为巴勒斯坦遇难儿童祈福</h1>
-    <div class="subtitle">愿他们的名字被记住 · 愿世界不再让孩子流血</div>
-</header>
+          <div class="candles" aria-hidden>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+          </div>
 
-<!-- 祈福语轮播 -->
-<div class="blessing-container" id="blessingText"></div>
+          <div class="names" id="namesList">
+            <!-- placeholder names; replace or remove as needed -->
+            <p>在此输入逝者姓名或默默为他们祈祷。</p>
+          </div>
 
-<!-- 遇难儿童名单 -->
-<div class="names-container" id="namesContainer">
-    <div class="memorial-item">
-        <div class="candle-real"><div class="candle-body"></div><div class="candle-light"></div></div>
-        <div class="stone-name">Noura Walid Abdulsalam Shaheen · 0岁</div>
+          <div class="actions">
+            <button class="btn" id="addNameBtn">添加名字</button>
+            <button class="btn ghost" id="printBtn">打印/保存为PDF</button>
+            <button class="btn ghost" id="copyBtn">复制祈祷文字</button>
+          </div>
+        </div>
+
+        <aside class="right" aria-label="信息与说明">
+          <div style="text-align:center;">
+            <svg width="140" height="140" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <defs></defs>
+              <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.02)" />
+              <path d="M16 38c6-10 22-16 30-10-5 6-9 14-5 20-6-1-13 5-25-10z" fill="white" opacity="0.98"/>
+            </svg>
+            <p style="color:var(--muted);font-size:14px;margin-top:8px">请以尊重与温柔的心使用本页面。若要嵌入照片或其他资料，请确保有权使用该素材并尊重当事人隐私。</p>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <div>页面为静态单文件 HTML，可直接保存为 <code>.html</code> 并在浏览器中打开。<br>如果你需要我把页面翻成阿拉伯语或加入更多样式／图片，我可以继续帮你修改。</div>
+      </footer>
     </div>
-    <div class="memorial-item">
-        <div class="candle-real"><div class="candle-body"></div><div class="candle-light"></div></div>
-        <div class="stone-name">Maryam Nour Al-Din Wael Daban · 0岁</div>
-    </div>
-    <div class="memorial-item">
-        <div class="candle-real"><div class="candle-body"></div><div class="candle-light"></div></div>
-        <div class="stone-name">Fatima Louay Rafiq Al-Sultan · 0岁</div>
-    </div>
-    <div class="memorial-item">
-        <div class="candle-real"><div class="candle-body"></div><div class="candle-light"></div></div>
-        <div class="stone-name">Watan Mohammed Abd Al-Rahim Al-Madhoon · 0岁</div>
-    </div>
-    <div class="memorial-item">
-        <div class="candle-real"><div class="candle-body"></div><div class="candle-light"></div></div>
-        <div class="stone-name">Mohammad Al-Jabbari Said Misbah Al-Khour · 0岁</div>
-    </div>
-    <!-- 后续可继续添加更多名字 -->
-</div>
+  </div>
 
-<footer>
-    本页面由一位普通人，为无辜的孩子们制作。<br>
-    祈愿世界不再让任何孩子流下最后的眼泪。
-</footer>
+  <script>
+    // basic interactions: add name, print, copy prayer
+    const namesList = document.getElementById('namesList');
+    const addNameBtn = document.getElementById('addNameBtn');
+    const printBtn = document.getElementById('printBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const prayerText = document.getElementById('prayerText');
 
-<script>
-// 自动滚动名单
-const container = document.getElementById("namesContainer");
-let scrollStep = 0.3;
-function autoScroll() {
-    container.scrollTop += scrollStep;
-    if(container.scrollTop + container.clientHeight >= container.scrollHeight){
-        container.scrollTop = 0;
+    function addName(name){
+      const p = document.createElement('p');
+      p.textContent = name || prompt('请输入逝者姓名（可留空只作默念）') || '— 默祷 —';
+      namesList.appendChild(p);
     }
-    requestAnimationFrame(autoScroll);
-}
-autoScroll();
 
-// 祈福语轮播
-const blessings = [
-    "愿他们安息，愿世界不再有孩子流泪。",
-    "孩子永远不该成为战争的牺牲品。",
-    "愿爱与和平照亮每一个破碎的生命。",
-    "让每一盏烛光照亮他们的名字。",
-    "我们记住他们，是为了让世界不再重复悲剧。"
-];
-const blessingEl = document.getElementById("blessingText");
-let blessingIndex = 0;
-function rotateBlessing(){
-    blessingEl.textContent = blessings[blessingIndex];
-    blessingIndex = (blessingIndex + 1) % blessings.length;
-    setTimeout(rotateBlessing, 5000);
-}
-rotateBlessing();
-</script>
+    addNameBtn.addEventListener('click', ()=> addName());
+    printBtn.addEventListener('click', ()=> window.print());
+    copyBtn.addEventListener('click', ()=>{
+      const t = Array.from(prayerText.querySelectorAll('p')).map(p=>p.textContent).join('\n');
+      navigator.clipboard?.writeText(t).then(()=>{
+        alert('祈祷文字已复制到剪贴板');
+      }, ()=>{alert('复制失败，请手动选择文本并复制。')});
+    });
 
+    // accessibility: keyboard shortcut 'N' to add name, 'P' to print
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'N' || e.key === 'n') addName();
+      if(e.key === 'P' || e.key === 'p') window.print();
+    });
+  </script>
 </body>
 </html>
