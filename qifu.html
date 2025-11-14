@@ -26,12 +26,18 @@
         margin-top: 10px;
     }
 
-    /* 烛光动画 */
+    /* 蜡烛动画 */
+    .candle-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 30px 0;
+    }
     .candle {
         width: 12px;
         height: 50px;
         background: linear-gradient(to bottom, #ffd27d, #ff9f43, #c87f34);
-        margin: 40px auto 10px;
         border-radius: 5px;
         box-shadow: 0 0 25px #ffcc7a;
         position: relative;
@@ -86,11 +92,14 @@
         background: rgba(255,255,255,0.06);
     }
 
-    footer {
+    /* 祈福语轮播 */
+    .blessing-container {
+        width: 80%;
+        margin: 0 auto 50px;
         text-align: center;
-        padding: 40px 20px;
-        opacity: 0.6;
-        font-size: 14px;
+        font-size: 20px;
+        min-height: 60px;
+        opacity: 0.9;
     }
 </style>
 </head>
@@ -101,84 +110,68 @@
     <div class="subtitle">愿他们的名字被记住 · 愿世界不再让孩子流血</div>
 </header>
 
-<div class="candle">
-    <div class="flame"></div>
+<!-- 多盏蜡烛 -->
+<div class="candle-container">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
 </div>
 
+<!-- 祈福语轮播 -->
+<div class="blessing-container" id="blessingText"></div>
+
+<!-- 遇难儿童名单 -->
 <section>
     <h2 class="section-title">他们的名字 · 他们曾来到这个世界</h2>
 
     <div class="names-container" id="namesContainer">
-        <!-- 示例姓名 -->
-        <div class="name-item">
-            <strong>辛德拉·哈苏娜 (Sidra Hassouna)</strong> · 7岁  
-            <br>于 2024 年 2 月 12 日遇难
-        </div>
-
-        <div class="name-item">
-            <strong>欣德·拉贾布 (Hind Rajab)</strong> · 5岁  
-            <br>于 2024 年 1 月 29 日遇难
-        </div>
-
-        <div class="name-item">
-            <strong>伊赞·阿尔‑卡法尔尼 (Yazan al‑Kafarneh)</strong> · 10岁  
-            <br>因饥饿与缺乏医疗救助于 2024 年 3 月 4 日去世
-        </div>
-
-        <div class="name-item">
-            <strong>Noura Walid Abdulsalam Shaheen</strong> · 婴儿  
-            <br>在加沙空袭中遇难
-        </div>
-
-        <div class="name-item">
-            <strong>Maryam Nour Al-Din Wael Daban</strong> · 婴儿  
-            <br>在加沙空袭中遇难
-        </div>
-
-        <div class="name-item">
-            <strong>Fatima Louay Rafiq Al‑Sultan</strong> · 婴儿  
-            <br>在加沙空袭中遇难
-        </div>
-
-        <div class="name-item">
-            <strong>Watan Mohammed Abd Al‑Rahim Al‑Madhoon</strong> · 婴儿  
-            <br>在加沙空袭中遇难
-        </div>
-
-        <!-- 你可以继续在这里添加更多姓名 -->
-    </div>
-</section>
-
-<section>
-    <h2 class="section-title">祈福</h2>
-    <div style="width:80%; margin:20px auto; font-size:18px; text-align:center;">
-        愿和平终有一天降临，  
-        愿孩子们不再在废墟中醒来，  
-        愿他们的笑声不再被炸弹撕裂。  
-        <br><br>
-        我们记住他们的名字，  
-        是为了告诉世界：  
-        <br><strong>孩子永远不应该成为战争的牺牲品。</strong>
+        <!-- 示例姓名，可扩展 -->
+        <div class="name-item"><strong>辛德拉·哈苏娜 (Sidra Hassouna)</strong> · 7岁<br>于 2024 年 2 月 12 日遇难</div>
+        <div class="name-item"><strong>欣德·拉贾布 (Hind Rajab)</strong> · 5岁<br>于 2024 年 1 月 29 日遇难</div>
+        <div class="name-item"><strong>伊赞·阿尔‑卡法尔尼 (Yazan al‑Kafarneh)</strong> · 10岁<br>于 2024 年 3 月 4 日遇难</div>
+        <div class="name-item"><strong>Noura Walid Abdulsalam Shaheen</strong> · 婴儿<br>在加沙空袭中遇难</div>
+        <div class="name-item"><strong>Maryam Nour Al-Din Wael Daban</strong> · 婴儿<br>在加沙空袭中遇难</div>
+        <div class="name-item"><strong>Fatima Louay Rafiq Al‑Sultan</strong> · 婴儿<br>在加沙空袭中遇难</div>
+        <div class="name-item"><strong>Watan Mohammed Abd Al‑Rahim Al‑Madhoon</strong> · 婴儿<br>在加沙空袭中遇难</div>
     </div>
 </section>
 
 <footer>
-    本页面由一位普通人，为无辜的孩子们制作。  
+    本页面由一位普通人，为无辜的孩子们制作。<br>
     祈愿世界不再让任何孩子流下最后的眼泪。
 </footer>
 
 <script>
-    // 自动滚动名单，慢慢向下
+    // 自动滚动名单
     const container = document.getElementById("namesContainer");
-    let scrollStep = 0.3; // 每帧滚动像素
+    let scrollStep = 0.3;
     function autoScroll() {
         container.scrollTop += scrollStep;
-        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+        if(container.scrollTop + container.clientHeight >= container.scrollHeight){
             container.scrollTop = 0;
         }
         requestAnimationFrame(autoScroll);
     }
     autoScroll();
+
+    // 祈福语轮播
+    const blessings = [
+        "愿他们安息，愿世界不再有孩子流泪。",
+        "孩子永远不该成为战争的牺牲品。",
+        "愿爱与和平照亮每一个破碎的生命。",
+        "让每一盏烛光照亮他们的名字。",
+        "我们记住他们，是为了让世界不再重复悲剧。"
+    ];
+    const blessingEl = document.getElementById("blessingText");
+    let blessingIndex = 0;
+    function rotateBlessing(){
+        blessingEl.textContent = blessings[blessingIndex];
+        blessingIndex = (blessingIndex + 1) % blessings.length;
+        setTimeout(rotateBlessing, 5000);
+    }
+    rotateBlessing();
 </script>
 
 </body>
